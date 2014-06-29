@@ -8,6 +8,7 @@ def tshark(captureFile, fields=None, filter_=None):
     if fields:
         field_args = [["-e", f] for f in fields]
         argFields = ["-T", "fields"] + list(chain(*field_args))
+        scriptFile = ["-X", "lua_script:../demo.lua"]
     if filter_:
         argFilter = ["-Y", filter_]
     args = ["c:/Program Files/Wireshark/tshark.exe"] +\
