@@ -22,9 +22,9 @@ def tshark(captureFile, fields=None, filter_=None):
     return out
 
 class TestVariablePackets(unittest.TestCase):
-    def test_framegrab_contains_framegrab_data(self):
+    def test_demo_protocol_contains_short_messages(self):
         output = tshark(
-            captureFile="resources/1.0_front_good_backlight_framegrab.pcapng", 
-            filter_="0dbcomms.sync == 0xCC",
-            fields=["0dbcomms.sync", "0dbcomms.port", "0dbcomms.command"])
+            captureFile="resources/dumpfile.pcapng", 
+            filter_="demo.type == 0x01",
+            fields=["demo.type", "demo.checksum", "demo.command", "demo.payload"])
         self.assertGreater(len(output.splitlines()), 0)
