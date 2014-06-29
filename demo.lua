@@ -3,7 +3,7 @@ demo_table = DissectorTable.new("demo.type", "Demo	Protocol")
 demo_proto = Proto("demo","Demo Protocol")
 function demo_proto.dissector(buffer,pinfo,tree)
 	pinfo.cols.protocol = "demo"
-	
+        
 	local subtree = tree:add(demo_proto,buffer(),"demo Packet")
 	local packet_type = buffer(0,1):uint()
 
@@ -37,5 +37,5 @@ function demo_large_packet_proto.dissector(buffer, pinfo, tree)
 	tree:add(demo_proto.fields.command, buffer(2,1))
 	tree:add(demo_proto.fields.payload, buffer(4,64))
 end
-demo_table:add(0x96, demo_large_packet_proto)
+demo_table:add(0x02, demo_large_packet_proto)
 --demo_large_packet_proto.fields.port = demo_proto.fields
