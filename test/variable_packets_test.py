@@ -26,6 +26,6 @@ class TestVariablePackets(unittest.TestCase):
     def test_demo_protocol_contains_short_messages(self):
         output = tshark(
             captureFile="resources/dumpfile.pcapng", 
-            filter_="demo.type == 0x01",
+            filter_="demo.packet_type == 0x01",
             fields=["demo.type", "demo.checksum", "demo.command", "demo.payload"])
         self.assertGreater(len(output.splitlines()), 0)
