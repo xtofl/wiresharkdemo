@@ -16,8 +16,9 @@ class EchoClient(protocol.Protocol):
     """Once connected, send a message, then print the result."""
     
     def connectionMade(self):
-        self.transport.write("hello, world!")
-    
+        self.transport.write(str(bytearray([0x02])+"long hello, world!"))
+        self.transport.write(str(bytearray([0x01])+"short hello, world!"))
+        
     def dataReceived(self, data):
         "As soon as any data is received, write it back."
         print "Server said:", data
