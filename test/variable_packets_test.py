@@ -27,5 +27,5 @@ class TestVariablePackets(unittest.TestCase):
         output = tshark(
             captureFile="resources/dumpfile.pcapng", 
             filter_="demo.packet_type == 0x01",
-            fields=["demo.type", "demo.checksum", "demo.command", "demo.payload"])
+            fields=["demo.packet_type", "demo.command", "demo.payload"])
         self.assertGreater(len(output.splitlines()), 0)
