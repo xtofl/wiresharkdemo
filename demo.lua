@@ -18,6 +18,8 @@ demo_proto.fields.packet_type = ProtoField.uint8("demo.packet_type", "Packet Typ
 })
 demo_proto.fields.command  = ProtoField.uint8("demo.command", "Command", base.HEX_DEC)
 demo_proto.fields.payload  = ProtoField.bytes("demo.payload", "Payload")
+demo_proto.fields.bitfield1 = ProtoField.uint8("demo.bitfield1", "Bitfield 1", base.HEX_DEC, nil, 0xF0)
+demo_proto.fields.bitfield2 = ProtoField.uint8("demo.bitfield2", "Bitfield 2", base.HEX_DEC, nil, 0x0C)
 
 tcp_table = DissectorTable.get("tcp.port")
 tcp_table:add(8000,demo_proto)
@@ -27,8 +29,8 @@ function demo_short_packet_proto.dissector(buffer, pinfo, tree)
 	local fields = demo_short_packet_proto.fields
 	tree:add(demo_proto.fields.command, buffer(1, 1))
 	tree:add(demo_proto.fields.payload, buffer(1))
-	tree:add("field 1", buffer(1):bitfield(0, 2))
-	tree:add("field 2", buffer(1):bitfield(2, 4))	
+	tree:add(demo_proto.fields.bitfield1, buffer(1, 1))
+	tree:add(demo_proto.fields.bitfield2, buffer(1, 1))
 end
 demo_table:add(0x01, demo_short_packet_proto)
 --demo_short_packet_proto.fields = demo_proto.fields
@@ -38,8 +40,8 @@ function demo_large_packet_proto.dissector(buffer, pinfo, tree)
 	local fields = demo_large_packet_proto.fields
 	tree:add(demo_proto.fields.command, buffer(1, 1))
 	tree:add(demo_proto.fields.payload, buffer(1))
-	tree:add("field 1", buffer(1):bitfield(0, 2))
-	tree:add("field 2", buffer(1):bitfield(2, 4))	
+	tree:add(demo_proto.fields.bitfield1, buffer(1, 1))
+	tree:add(demo_proto.fields.bitfield2, buffer(1, 1))
 end
 demo_table:add(0x02, demo_large_packet_proto)
 --demo_large_packet_proto.fields.port = demo_proto.fields
