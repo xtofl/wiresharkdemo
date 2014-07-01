@@ -25,8 +25,8 @@ tcp_table:add(8000,demo_proto)
 demo_short_packet_proto = Proto("demo.short", "Demo Short Packet")
 function demo_short_packet_proto.dissector(buffer, pinfo, tree)
 	local fields = demo_short_packet_proto.fields
-	tree:add(demo_proto.fields.command, buffer(2,1))
-	tree:add(demo_proto.fields.payload, buffer(4,8))
+	tree:add(demo_proto.fields.command, buffer(1, 1))
+	tree:add(demo_proto.fields.payload, buffer(1))
 end
 demo_table:add(0x01, demo_short_packet_proto)
 --demo_short_packet_proto.fields = demo_proto.fields
@@ -34,8 +34,8 @@ demo_table:add(0x01, demo_short_packet_proto)
 demo_large_packet_proto = Proto("demo.large", "Demo Large Packet")
 function demo_large_packet_proto.dissector(buffer, pinfo, tree)
 	local fields = demo_large_packet_proto.fields
-	tree:add(demo_proto.fields.command, buffer(2,1))
-	tree:add(demo_proto.fields.payload, buffer(4,64))
+	tree:add(demo_proto.fields.command, buffer(1, 1))
+	tree:add(demo_proto.fields.payload, buffer(1))
 end
 demo_table:add(0x02, demo_large_packet_proto)
 --demo_large_packet_proto.fields.port = demo_proto.fields
